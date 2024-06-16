@@ -1,0 +1,50 @@
+class Solution {
+    public String reverseWords(String s) {
+        // Brute - tc = O(n) and sc = O(n)
+        s = s.trim();
+        int n = s.length();
+        Stack<String> st = new Stack<String>();
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i<n;i++){
+            if(s.charAt(i) == ' '){
+                if(str.length()>0){
+                    st.push(str.toString());
+                    str.setLength(0);
+                }
+            }
+            else{
+                str.append(s.charAt(i));
+            }
+        }
+        if(str.length() > 0){
+            st.push(str.toString());
+        }   
+          
+        StringBuilder ans = new StringBuilder();
+        while(!st.isEmpty()){
+            ans.append(st.pop());
+            if(!st.isEmpty()){
+                ans.append(" ");
+            }
+        }
+      
+     return ans.toString();
+
+    // Optimal - tc = O(N) and sc = O(N)
+    s = s.trim();
+    StringBuilder str = new StringBuilder();
+    int end = s.length();
+    int start;
+    for(int i = end-1;i>=0;i--){
+        if(s.charAt(i) == ' '){
+            str.append(s.substring(i+1, end)).append(" ");
+            while(i>= 0 && s.charAt(i) == ' '){
+                i--;
+            }
+            end = i+1;
+        }
+    }
+    str.append(s.substring(0, end));
+    return str.toString();
+}
+}
