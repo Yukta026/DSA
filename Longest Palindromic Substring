@@ -1,0 +1,71 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        // Brute - tc = O(n^3) and sc = O(1)
+        int n = s.length();
+        int maxLength = 1;
+        int start = 0;
+        for(int i=0;i<n;i++){
+            for(int j = i;j<n;j++){
+                int flag = 1;
+            
+
+            for(int k = 0; k< (j-i +1) / 2;k++){
+                if(s.charAt(i+k) != s.charAt(j-k)){
+                    flag = 0;
+                }
+            }
+
+            if(flag != 0 && (j-i+1) > maxLength){
+                start = i;
+                maxLength = j-i+1;
+            }
+        }}
+
+        String ans = "";
+        for(int l = start; l< start+maxLength;l++){
+            ans += s.charAt(l);
+        }
+        return ans;
+
+        // Optimal - tc = O(N^2) and sc= O(1)
+        int n = s.length();
+        int start = 0;
+        int end =1;
+        int low;
+        int hi;
+
+        for(int i=0;i<n;i++){
+            low = i-1;
+            hi = i;
+
+            while(low >= 0 && hi < n && s.charAt(low) == s.charAt(hi)){
+                if(hi - low +1 > end){
+                    start = low;
+                    end = hi - low +1;
+                }
+                low--;
+                hi++;
+            }
+        low = i-1;
+        hi = i+1; 
+        
+        // for odd size palindrome
+      
+
+        while(low >= 0 && hi < n && s.charAt(low) == s.charAt(hi)){
+            if(hi - low+1>end){
+                start = low;
+                end = hi - low +1;
+            }
+            low--;
+            hi++;
+
+        }
+    }
+    String ans = "";
+    for(int l = start;l< start+end;l++){
+        ans += s.charAt(l);
+    }
+    return ans;
+}
+}
