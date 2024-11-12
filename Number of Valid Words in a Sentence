@@ -1,0 +1,35 @@
+class Solution {
+    public int countValidWords(String sentence) {
+        int validcount = 0;
+        for(String sen : sentence.split(" ")){
+            if(validWord(sen)){
+                validcount++;
+            }
+        }
+       
+    return validcount;
+    }
+    public static boolean validWord(String sen){
+        int length = sen.length();
+        boolean hasHypenOccured = false;
+        if(length == 0){
+            return false;
+        }
+
+        for(int i=0;i<length;i++){
+            char character = sen.charAt(i);
+            if(Character.isDigit(character) || ((i < length-1) && ((character == '!') || (character == '.') || (character == ',')))){
+                return false;
+            }
+            if(character == '-'){
+            if(hasHypenOccured || i == 0 || i == length-1 || !Character.isLetter(sen.charAt(i-1)) || !Character.isLetter(sen.charAt(i+1))){
+                return false;
+            }
+            hasHypenOccured = true;
+            }
+        }
+        return true;
+    }
+}
+// tc = O(n)
+// sc = O(n) 
