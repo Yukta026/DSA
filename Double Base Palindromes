@@ -1,0 +1,42 @@
+
+public class Main {
+    public static void main(String[] args) {
+        int n = 5;
+        int count = 0;
+        
+        for(int i=1;i<=n;i++){
+        int reverse = 0;
+        int temp = i;
+        while(temp>0){
+            reverse = (reverse*10) + (temp%10);
+            temp = temp/10;
+        }
+        if(reverse == i){
+        int id = 0;
+        int[] ans = new int[35];
+        int tempN = i; 
+        while(tempN > 0){
+            ans[id++] = tempN %2;
+            tempN = tempN /2;
+        }
+        if(isPalindrome(ans,id)){
+            count+= i;
+        }
+        }
+        
+    } System.out.print(count);}
+    public static boolean isPalindrome(int[] ans,int length){
+        int left = 0;
+        int right = length-1;
+        while(left < right){
+            if(ans[left] != ans[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+// tc = O(n.log n)
+// sc = O(log n)
