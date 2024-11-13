@@ -1,0 +1,30 @@
+public class Main {
+    public static void main(String[] args) {
+       String s = "1102021222";
+       int k = 2;
+       int count = 0;
+       int n =  s.length(); 
+       for(int i=0;i<n;i++){ 
+       int[] freq = new int[3];
+           for(int j=i;j<n;j++){
+               if(s.charAt(j) == '0' || s.charAt(j) == '1' || s.charAt(j) == '2'){
+                   freq[s.charAt(j) - '0']++;
+               }
+               if(isPerfect(freq,k)){
+                   count++;
+               }
+           }
+       }
+       System.out.println(count);
+    }
+    public static boolean isPerfect(int[] freq,int k ){
+        if((freq[0] == 0 || freq[0] == k) &&
+           (freq[1] == 0 || freq[1] == k) &&
+           (freq[2] == 0 || freq[2] == k)){
+            return true;
+        }
+        return false;
+    }
+}
+// tc - O(n^2)
+// sc - O(1)
