@@ -1,0 +1,40 @@
+// Backtracking Problem
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+
+// tc = O(n log n) (for sorting) + O(2^n) (for binary tree) = O(2^n)
+// sc = O(n) (for storing intermediate branching)
+class Codechef
+{   static int minCount = Integer.MAX_VALUE;
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		
+		
+		List<Integer> server = new ArrayList<Integer>();
+		server.add(5);
+		server.add(1);
+		server.add(1);
+		server.add(2);
+		server.add(4);
+		server.add(4);
+		Collections.sort(server,Collections.reverseOrder());
+        int expected_load = 10;
+        backtrack(server,expected_load,0,0);
+        System.out.print((minCount == Integer.MAX_VALUE) ? -1 : minCount);
+	}
+	
+	static void backtrack(List<Integer> server, int target,int index,int count){
+	    
+	    if(target == 0){
+	        minCount = Math.min(minCount, count);
+	        return;
+	    }
+	    if(target <0 || index == server.size() ||  count >= minCount){
+	        return;
+	    }
+	    backtrack(server,target - server.get(index), index+1, count+1);
+	    backtrack(server,target,index+1,count);
+	}
+}
