@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    // tc - O(n^2) = O(n) (to compute XOR) + O(n) (to rotate left)
+    // sc = O(n) (for bestXor)
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		String currentKey = "0011110";
+		String rotatedKey = "1111000";
+		System.out.print(optimalXor(currentKey,rotatedKey));
+
+	}
+	
+	public static String optimalXor(String currentKey, String rotatedKey){
+	    int maxOnes = -1;
+	    String bestXor = "";
+	    
+	    for(int i=0;i<rotatedKey.length();i++){
+	        String xor = rotatedXor(currentKey,rotatedKey);
+	        int one = xor.replace("0","").length();
+	        
+	        if(one > maxOnes || (one == maxOnes && xor.compareTo(bestXor) > 0 )){
+	            maxOnes = one;
+	            bestXor = xor;
+	        }
+	        rotatedKey = rotateLeft(rotatedKey);
+	    }
+	    return bestXor;
+	}
+	
+	public static String rotateLeft(String rotatedKey){
+	    return rotatedKey.substring(1) + rotatedKey.charAt(0);
+	}
+	
+	public static String rotatedXor(String currentKey, String rotatedKey){
+	    StringBuilder result = new StringBuilder();
+	    
+	    
+	    for(int i=0;i<rotatedKey.length();i++){
+	        result.append(currentKey.charAt(i) == rotatedKey.charAt(i) ? '0' : '1');
+	    }
+	    return result.toString();
+	}
+}
