@@ -1,0 +1,35 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+// Brute NumberFormatException
+// tc - O(n^2)
+// sc - O(1)
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    //int[] Arrival = {900, 940, 950, 1100, 1500, 1800};
+	    //int[] Departure = {910, 1200, 1120, 1130, 1900, 2000};
+	    int[] Arrival = {900, 1100, 1235};
+	    int[] Departure = {1000, 1200, 1240};
+	    System.out.print(findPlatform(Arrival,Departure));
+
+	}
+
+    public static int findPlatform(int[] Arrival, int[] Departure) {
+        int maxCount = 0;
+
+        for(int i=0;i<Arrival.length;i++){
+            int count =1;
+            for(int j=i+1;j<Departure.length;j++){
+                if(Arrival[i] >= Arrival[j] && Arrival[i] <= Departure[j]
+                || Arrival[j] >= Arrival[i] && Arrival[j] <= Departure[i]) {
+                    count++;
+                }
+            }
+            if(maxCount < count){maxCount = count;}
+        } 
+        return maxCount;
+    
+}
+}
