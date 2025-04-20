@@ -1,0 +1,42 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+// Optimized
+// tc - 2 O(N log N) (for sorting) + 2 O(N)(while loop) = 2 O(N log N + N) ~ 2 O(N log N)
+// sc - O(1)
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    int[] Arrival = {900, 940, 950, 1100, 1500, 1800};
+	    int[] Departure = {910, 1200, 1120, 1130, 1900, 2000};
+	    //int[] Arrival = {900, 1100, 1235};
+	    //int[] Departure = {1000, 1200, 1240};
+	    System.out.print(findPlatform(Arrival,Departure));
+
+	}
+
+    public static int findPlatform(int[] Arrival, int[] Departure) {
+        Arrays.sort(Arrival);
+        Arrays.sort(Departure);
+        int count =0;
+        int maxCount =0;
+        int j=0;
+        int i =0;
+        while(i < Arrival.length){
+            if(Arrival[i] <= Departure[j]){
+                count++;
+                i += 1;
+            }
+            else{
+                count--;
+                j++;
+            }
+            if(count >= maxCount){
+                maxCount = count;
+            }
+        }
+        return maxCount;
+    
+}
+}
