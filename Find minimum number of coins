@@ -1,0 +1,27 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// tc - O(V + n) ~ O(V)
+// sc - O(V)
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	   int coins[] = {1, 2, 5, 10, 20, 50, 100, 500, 1000};
+	   int V = 10000;
+	   List<Integer> ans = new ArrayList<>();
+	   int n = coins.length;
+	   for(int i=n-1;i>=0;i--){
+	       while(V >= coins[i]){
+	           V -= coins[i];
+	           ans.add(coins[i]);
+	       }
+	   }
+       System.out.println("Min no. of coins: "+ans.size());
+       for(int j =0;j<ans.size();j++){
+       System.out.println(ans.get(j));
+       }
+	}
+}
