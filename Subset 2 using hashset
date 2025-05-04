@@ -1,0 +1,35 @@
+// Time complexity: O(2^N *(k*log(x))
+// Space complexity: O(2^N * k)
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	   int[] arr = {1,2,2};
+	   
+	   List<String> str = new ArrayList<>();
+	   HashSet<String> hs = new HashSet<>();
+	   List<Integer> ans = new ArrayList<>();
+	   fun(0,hs,ans,arr);
+	   for(String it: hs){
+	       str.add(it);
+	   }
+	   System.out.print(str.toString());
+
+	}
+	public static void fun(int index,HashSet hs,List<Integer> ans, int[] arr){
+	    if(index == arr.length){
+	        Collections.sort(ans);
+	        hs.add(ans.toString());
+	        return;
+	    }
+	    ans.add(arr[index]);
+	    fun(index+1,hs,ans,arr);
+	    ans.remove(ans.size()-1);
+	    fun(index+1,hs,ans,arr);
+	    
+	}
+}
