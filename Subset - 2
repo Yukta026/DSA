@@ -1,0 +1,22 @@
+// Time complexity - O(2^N * N) + O(N log N)
+// Space Complexity - O(2^N) * O(K)
+// Auxilliary Space - O(N)
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        List<List<Integer>> ansList = new ArrayList<>();
+        recur(0,n,new ArrayList(),nums,ansList);
+        return ansList; 
+    }
+    static void recur(int index,int n,List<Integer> ds,int[] nums,List<List<Integer>> ansList){
+        ansList.add(new ArrayList<>(ds));
+        for(int i = index;i<nums.length;i++){
+            if(i != index && nums[i] == nums[i-1]) continue;
+            ds.add(nums[i]);
+            recur(i+1,n,ds,nums,ansList);
+            ds.remove(ds.size() -1);
+        }
+      
+    }
+}
