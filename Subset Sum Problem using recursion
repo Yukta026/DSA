@@ -1,0 +1,21 @@
+Subset Sum Problem using recursion
+class Solution {
+// tc - O(2^N * N)
+// sc - O(N)
+    static Boolean isSubsetSum(int arr[], int sum) {
+        // code here
+        int n = arr.length;
+        return recur(0,0,arr,sum,n);
+    }
+    static boolean recur(int index,int sums,int[] arr,int sum,int n){
+       
+        if(index ==n){
+            return sums == sum;
+            
+        }
+        if(recur(index+1,sums+arr[index],arr,sum,n)){return true;}
+        if(recur(index+1,sums,arr,sum,n)){return true;}
+        return false;
+    }
+    
+}
