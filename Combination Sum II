@@ -1,0 +1,29 @@
+Combination Sum II - Find all unique combinations - Using recursion & hash set
+-------------------------------------------------------------------------------
+Time Complexity : O(2^n* k log(K))
+Space Complexity : O(2^n * k)
+-------------------------------------------------------------------------------
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Set<List<Integer>> ans = new HashSet<>();
+        Arrays.sort(candidates);
+        recur(0,target,candidates,new ArrayList<>(), ans);
+        List<List<Integer>> anss = new ArrayList<>();
+        for(List<Integer> t : ans){      
+              anss.add(t);
+        }
+        return anss;
+    }
+    public void recur(int index,int target,int[] candidates, List<Integer> ds,Set<List<Integer>> ans){
+        if(index == candidates.length){
+            if(target ==0 ){
+                ans.add(new ArrayList<>(ds));
+            }
+            return;
+        }
+        ds.add(candidates[index]);
+        recur(index+1,target-candidates[index],candidates,ds,ans);
+        ds.remove(ds.size()-1);
+        recur(index+1,target,candidates,ds,ans);
+        }
+    }
