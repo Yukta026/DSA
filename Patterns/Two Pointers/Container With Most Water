@@ -1,0 +1,29 @@
+Container With Most Water
+-------------------------
+Time Complexity - O(N)
+Space Complexity - O(1)
+-------------------------
+
+class Solution {
+    public int maxArea(int[] height) {
+        
+        int left = 0;
+        int right = height.length-1;
+        int area =0;
+        while(left <right){
+// Calculate height and width for area by considering minimum out of left and right as height and distance between the two as width
+            int h = Math.min(height[left],height[right]);
+            int w = right-left;
+            area = Math.max(area,h*w);
+// Finding the highest possible value for left and right
+            if(height[left] < height[right]){
+                left++;
+            }
+            else{
+                right--;
+            }
+        }
+        return area;
+        
+    }
+}
