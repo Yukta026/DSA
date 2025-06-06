@@ -1,0 +1,39 @@
+Reverse Linked List II
+-----------------------
+Time Complexity - O(N)
+Space Complexity - O(1)
+-----------------------
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if(head == null || head.next == null){
+            return head;
+        }
+// Dummy node creation to handle edge case for left pointer when pointing to starting index of linked list
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+// Traversing linked list till the left pointer
+        for(int i=1;i<left;i++){
+            prev = prev.next;
+        }
+//  Reversing the linked list wihtin the range left to right
+        ListNode curr = prev.next;
+        for(int i=0;i<right-left;i++){
+            ListNode temp = curr.next;
+            curr.next = temp.next;
+            temp.next = prev.next;
+            prev.next = temp;
+        }
+        return dummy.next;
+    }
+}
