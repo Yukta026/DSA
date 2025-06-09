@@ -1,0 +1,20 @@
+Daily Temperatures
+------------------------
+Time Complexity - O(N)
+Space Complexity - O(N)
+------------------------
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] res = new int[temperatures.length];
+        Arrays.fill(res,0);
+        Stack<Integer> st = new Stack<>();
+        for(int i=0;i<temperatures.length;i++){  
+            while(!st.isEmpty() && temperatures[st.peek()] < temperatures[i]){
+                int prevIndex = st.pop();
+                res[prevIndex] = i - prevIndex;
+            }
+            st.push(i);
+        }
+        return res;
+    }
+}
