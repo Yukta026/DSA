@@ -1,0 +1,44 @@
+Find K Pairs with Smallest Sums
+-------------------------------
+Time Complexity - O(k log k)
+Space Complexity - O(k)
+-------------------------------
+class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+
+        // Min heap to store pairs: [val1,val2,index1,index2]
+        // Priortized by sum of values (val1+val2)
+        PriorityQueue<int[]> hp = new PriorityQueue<>((a,b) -> (a[0]+a[1]) - (b[0]+b[1]));
+       // Start with guaranteed sorted pair (both arrays sorted)
+        hp.offer(new int[]{nums1[0],nums2[0],0,0});
+        // Track visited index pairs to avoid duplicates
+        Set<List<Integer>> visited = new HashSet<>();
+        List<List<Integer>> ans = new ArrayList<>();
+        visited.add(Arrays.asList(0,0));
+        while(!hp.isEmpty() && k>0){
+            // Extract the current smallest pair
+            int[] current = hp.poll();
+            int i = current[2]; // index for nums1
+            int j = current[3]; // index for nums2
+            List<Integer> res = new ArrayList<>();
+            res = Arrays.asList(nums1[i],nums2[j]);
+            ans.add(res);
+            k -= 1;
+            // Add next promising candidate move right in nums1
+            int next_i = i+1;
+            if(next_i < nums1.length && !visited.contains(Arrays.asList(next_i,j))){
+                hp.offer(new int[]{nums1[next_i],nums2[j],next_i,j});
+                visited.add(Arrays.asList(next_i,j));
+
+            }
+             // Add next promising candidate move down in nums2
+            int next_j = j+1;
+            if(next_j < nums2.length && !visited.contains(Arrays.asList(i,next_j))){
+                hp.offer(new int[]{nums1[i],nums2[next_j],i,next_j});
+                visited.add(Arrays.asList(i,next_j));
+                
+            }
+        }
+        return ans;
+    }
+}
