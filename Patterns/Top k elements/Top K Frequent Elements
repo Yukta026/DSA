@@ -1,0 +1,26 @@
+Top K Frequent Elements
+----------------------------
+Time Complexity - O(n log k)
+Space Complexity -O(n)
+-----------------------------
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+// Use hash map to store frequency of array elements
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int num:nums){
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+// Sorting the frequencies in ascending order
+        PriorityQueue<Integer> q = new PriorityQueue<>((a,b) -> map.get(a) - map.get(b));
+// Inserting key values of map into queue
+        for(int num: map.keySet()){
+            q.offer(num);
+            if(q.size() > k){
+                q.poll();
+            }
+
+        }
+// Converting queue to object array and then to integer array
+        return q.stream().mapToInt(i->i).toArray();
+    }
+}
