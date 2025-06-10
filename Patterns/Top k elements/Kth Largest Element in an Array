@@ -1,0 +1,21 @@
+Kth Largest Element in an Array
+-------------------------------
+Time Complexity - O(n log k)
+Space Complexity - O(k)
+------------------------------
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+// Use maxHeap to store maximum k elements so far
+       PriorityQueue<Integer> maxHeap = new PriorityQueue<>();
+       for(int num:nums){
+        maxHeap.offer(num);
+// Maintain only the top k elements in the queue
+        if(maxHeap.size() > k){
+            maxHeap.poll();
+        }
+
+       }
+// The root of k-sized heap is the k-th largest element
+       return maxHeap.peek();
+    }
+}
