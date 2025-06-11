@@ -1,0 +1,26 @@
+Merge Intervals
+-----------------------------
+Time Complexity - O(n log n)
+Space Complexity - O(n)
+-----------------------------
+class Solution {
+    public int[][] merge(int[][] intervals) {
+       if(intervals.length <= 1){
+        return intervals;
+       }
+// Sorting array to get correct order of merging intervals
+       Arrays.sort(intervals, (a,b) -> Integer.compare(a[0],b[0]));
+       List<int[]> merged = new ArrayList<>();
+       for(int[] interval: intervals){
+        if(merged.isEmpty() || merged.get(merged.size()-1)[1] < interval[0]){
+            merged.add(interval);
+        }
+        else{
+// Finding maximum interval when intervals overlap
+            merged.get(merged.size()-1)[1] = Math.max(merged.get(merged.size()-1)[1], interval[1]);
+        }
+       }
+// Converting list to arrays
+       return merged.toArray(new int[merged.size()][]);
+    }
+}
