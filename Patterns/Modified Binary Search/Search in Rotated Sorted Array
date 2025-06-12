@@ -1,0 +1,38 @@
+Search in Rotated Sorted Array
+------------------------------
+Time Complexity - O(N)
+Space Complexity -O(1)
+------------------------------
+class Solution {
+    public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length-1;
+        while(left<=right){
+            int mid = (left+right)/2;
+            if(nums[mid] == target){
+                return mid;
+            }
+            if(nums[left]<=nums[mid]){
+// If target lies between left and mid elements of array then updating right pointer to mid-1
+                if(nums[left] <= target && target < nums[mid]){
+                    right = mid-1;
+                }
+// Other wise incrementing left pointer to mid+1
+                else{
+                    left = mid+1;
+                }
+            }
+            else{
+// If traget is in between mid and right then pointing left to mid+1
+                if(nums[mid] < target && target <= nums[right]){
+                    left = mid+1;
+                }
+// Otherwise updating right pointer value to mid-1
+                else{
+                    right = mid -1;
+                }
+            }
+        }
+        return -1;
+    }
+}
