@@ -1,0 +1,44 @@
+Kth Smallest Element in a BST
+-----------------------------
+Time Complexity - O(N)
+Space Complexity - O(1)
+-----------------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private int count =0;
+    private int result = -1;
+    public int kthSmallest(TreeNode root, int k) {
+        if(root == null){
+            return result;
+        }
+// Performing in-order traversal smallest element would be present on the left node in a BST
+        small(root,k);
+        return result;
+    }
+    public void small(TreeNode root,int k){
+        if(root == null){
+            return;
+        }
+        small(root.left,k);
+        count++;
+        if(count == k){
+            result = root.val;
+            return;
+        }
+        small(root.right,k);
+    }
+}
