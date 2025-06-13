@@ -1,0 +1,48 @@
+Binary Tree Paths
+-----------------------
+Time Complexity - O(N)
+Space Complexity - O(N)
+-----------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> traversal = new ArrayList<>();
+        if(root == null){
+            return traversal;
+        }
+        depthTraverse(root,"",traversal);
+        return traversal;
+    }
+    public void depthTraverse(TreeNode root,String path,List<String> traverse){
+        if(root == null){
+            return;
+        }
+// Inserting current node value to path
+        path += root.val;
+// Add path to traversal when leaf node found
+        if(root.left == null && root.right == null){
+            
+            traverse.add(path);
+            
+        }
+        path += "->";
+// Traverse left and right node to add remaining node to traversal
+        depthTraverse(root.left,path,traverse);
+        depthTraverse(root.right,path,traverse);
+        
+    }    
+}
