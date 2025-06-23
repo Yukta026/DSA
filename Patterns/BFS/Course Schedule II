@@ -1,0 +1,57 @@
+Course Schedule II
+--------------------------------
+Time Complexity - O(n+m)
+Space Complexity - O(n+m)
+
+where n - numCourses
+and m - number of prerequisites 
+--------------------------------
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        // iinDegree map for topological sorting
+        Map<Integer,Integer> inDegree = new HashMap<>();
+        List<Integer> ans = new ArrayList<>();
+        for(int num=0; num< numCourses; num++){
+            inDegree.put(num,0);
+        }
+        for(int[] pair: prerequisites ){
+            int course = pair[0];
+            inDegree.put(course, inDegree.getOrDefault(course,0)+1);
+        }
+        // Adjacency list for maintaining the list of prerequisite course along with their dependent courses
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for(int[] pair: prerequisites){
+            int course = pair[0];
+            int prerequisite = pair[1];
+            graph.putIfAbsent(prerequisite, new ArrayList<>());
+            graph.get(prerequisite).add(course);
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0;i<numCourses;i++){
+            if(inDegree.getOrDefault(i,0) == 0){
+                q.offer(i);
+            }
+        }
+        while(!q.isEmpty()){
+            int course = q.poll();
+            ans.add(course);
+
+            for(int num: graph.getOrDefault(course, Collections.emptyList())){
+                // Reduce degree as each course gets completed 
+                inDegree.put(num, inDegree.get(num)-1);
+
+                if(inDegree.get(num) == 0){
+                    q.offer(num);
+                }
+            }
+        }
+        // If cycle detected then return 0
+        if(ans.size() != numCourses){return new int[0];}
+        int[] result = new int[ans.size()];
+        for(int i=0;i<ans.size();i++){
+            result[i] = ans.get(i);
+        }
+        
+        return result;
+    }
+}
