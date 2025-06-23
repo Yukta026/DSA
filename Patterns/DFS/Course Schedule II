@@ -1,0 +1,63 @@
+Course Schedule II
+---------------------------------------------
+Time Complexity - O(n+m)
+Space Complexity - O(n+m)
+
+where n - numCourses
+and m - number of prerequisite courses pairs
+--------------------------------------------
+class Solution {
+    private Map<Integer, List<Integer>> graph;
+    private int[] visited;
+    private boolean hasCycle;
+    private List<Integer> order;
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        visited = new int[numCourses];
+        hasCycle = false;
+        order = new ArrayList<>();
+        graph = new HashMap<>();
+        // Storing adjacency list for all prerequiiste course along with their dependent courses
+        for(int[] pair : prerequisites){
+            int course = pair[0];
+            int prerequisite = pair[1];
+            graph.putIfAbsent(prerequisite, new ArrayList<>());
+            graph.get(prerequisite).add(course);
+        }
+
+        for(int course = 0;course< numCourses;course++){
+            if(visited[course] == 0){
+                dfs(course);
+                if(hasCycle == true){
+                    return new int[0];
+                }
+            }
+        }
+        // Reversing list to get ascending order of number of dependent courses
+        Collections.reverse(order);
+        int[] result = new int[order.size()];
+        for(int i=0;i<order.size();i++){
+            result[i] = order.get(i);
+        }
+        return result;
+    }
+    public void dfs(int course){
+        if(hasCycle){
+            return;
+        }
+        visited[course] = 1;
+        for(int nextCourse : graph.getOrDefault(course, Collections.emptyList())){
+            // Deep search for all dependent courses
+            if(visited[nextCourse] == 0){
+                dfs(nextCourse);
+            }
+            // Cycle found
+            else if(visited[nextCourse] == 1){
+                hasCycle = true;
+                return;
+            }
+
+        }
+        visited[course] = 2;
+        order.add(course);
+    }    
+}
