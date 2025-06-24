@@ -1,0 +1,45 @@
+Binary Tree Level Order Traversal
+---------------------------------
+Time Complexity - O(N)
+Space Complexity - O(N)
+---------------------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root == null){
+            return ans;
+        }
+// Usage of queue to traverse elements in level order
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()){
+            int q_size = q.size();
+// Storing intermediate result in res arraylist
+            List<Integer> res = new ArrayList<>();
+            for(int i=0;i<q_size;i++){
+// Popping out queue element and storing in node
+                TreeNode node = q.poll();
+                res.add(node.val);
+                if(node.left != null){q.offer(node.left);}
+                if(node.right != null){q.offer(node.right);}
+            }
+            ans.add(res);
+        }
+        return ans;
+    }
+}
