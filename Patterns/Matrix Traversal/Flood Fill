@@ -1,0 +1,48 @@
+Flood Fill 
+--------------------------
+Time Complexity - O(n*m)
+Space Complexity - O(n*m)
+where n = no. of rows
+m = no. of columns
+--------------------------
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        Queue<int[]> q = new LinkedList<>();
+// Storing original color to later compare it with neighbouring color
+        int originalColor = image[sr][sc];
+// If original color is same as given color then no change in grid required
+        if(originalColor == color){
+            return image;
+        }
+        image[sr][sc] = color;
+        q.offer(new int[]{sr,sc});
+// For looking horizontally and vertically
+        int[][] directions = {
+            {-1,0},
+            {1,0},
+            {0,-1},
+            {0,1}
+        };
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                int[] num = q.poll();
+                int r = num[0];
+                int c = num[1];
+                for(int[] dir: directions){
+                int newR = r + dir[0];
+                int newC = c + dir[1];
+// Checking neighbours having the original color of colored element
+                if(newR >= 0 && newR < image.length && newC >= 0 && newC < image[0].length
+              &&  image[newR][newC] == originalColor){
+                    image[newR][newC] = color;
+                    q.offer(new int[]{newR,newC});
+                }
+            }
+        }
+        }
+        return image;
+    }
+}
