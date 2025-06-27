@@ -1,0 +1,23 @@
+Subsets
+-------------------------
+Time Complexity - O(2^n)
+Space Complexity - O(n)
+-------------------------
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        bk(nums,0,new ArrayList<>(),ans);
+        return ans;
+
+    }
+    public void bk(int[] nums,int index,List<Integer> r,List<List<Integer>> ans){
+        ans.add(new ArrayList<>(r));
+        for(int i=index;i<nums.length;i++){
+// adding subset to arraylist
+            r.add(nums[i]);
+            bk(nums,i+1,r,ans);
+// backtracking 
+            r.remove(r.size()-1);
+        }
+    }
+}
